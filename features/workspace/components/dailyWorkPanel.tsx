@@ -18,6 +18,12 @@ import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 import { createWork, queryWork } from "@/core/data";
 import { Work } from "@/core/data/types";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@radix-ui/react-collapsible";
+import { Progress } from "@/components/ui/progress";
 
 const FormSchema = z
   .object({
@@ -80,16 +86,31 @@ export const DailyWorkPanel = () => {
       </div>
       <div className="flex-1 flex gap-4 py-4 overflow-y-auto">
         <div className="flex-1">
-          <h4>今日工作</h4>
+          <Collapsible>
+            <CollapsibleTrigger className="border shadow-sm w-full">
+              <div className="flex flex-row px-4 py-2 justify-between items-center">
+                  <div className="flex-1 text-left">
+                    今日工作
+                  </div>
+                  <div className="flex-1">
+                    <Progress value={33} />
+                  </div>
+              </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="h-[640px] overflow-y-scroll">
+                {
+                  selectedDateWorks.map(work => {
+                    return <div className="border shadow-sm w-full px-4 py-2">{work.work}</div>
+                  })
+                }
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+          {/* <h4>今日工作</h4>
           {selectedDateWorks.map((work) => {
             return <div className="px-4 py-2 border">{work.work}</div>;
-          })}
-        </div>
-        <div className="flex-1 ">
-          <h4>需複習工作</h4>
-          {selectedDateReviewWorks.map((work) => {
-            return <div className="px-4 py-2 border">{work.work}</div>;
-          })}
+          })} */}
         </div>
       </div>
       <div>
