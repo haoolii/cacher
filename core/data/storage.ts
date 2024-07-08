@@ -1,13 +1,13 @@
 import { ReviewConfig, ReviewRecord, Storable, Work } from "./types";
 
-export const Prefix = 'CACHER'
+export const Prefix = "CACHER";
 
-class LocalStorageService<T extends Storable> {
+export class LocalStorageService<T extends Storable> {
   private storageKey: string;
 
   constructor(storageKey: string) {
     console.log(`=== Create ${storageKey} ===`);
-    this.storageKey = storageKey;   
+    this.storageKey = storageKey;
   }
 
   private getAll(): T[] {
@@ -48,6 +48,14 @@ class LocalStorageService<T extends Storable> {
 
 export const workStorage = new LocalStorageService<Work>(`${Prefix}_WORKS`);
 
-export const reviewRecordStorage = new LocalStorageService<ReviewRecord>(`${Prefix}_REVIEW_RECORDS`);
+export const reviewRecordStorage = new LocalStorageService<ReviewRecord>(
+  `${Prefix}_REVIEW_RECORDS`
+);
 
-export const reviewConfigStorage = new LocalStorageService<ReviewConfig>(`${Prefix}_REVIEW_CONFIGS`);
+export const reviewConfigStorage = new LocalStorageService<ReviewConfig>(
+  `${Prefix}_REVIEW_CONFIGS`
+);
+
+export const fulfillRecordStorage = new LocalStorageService<ReviewRecord>(
+  `${Prefix}_FULFILL_RECORDS`
+);
