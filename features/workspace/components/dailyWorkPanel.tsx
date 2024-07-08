@@ -24,6 +24,17 @@ import {
   CollapsibleContent,
 } from "@radix-ui/react-collapsible";
 import { Progress } from "@/components/ui/progress";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const FormSchema = z
   .object({
@@ -33,107 +44,105 @@ const FormSchema = z
 
 export const DailyWorkPanel = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs().toISOString());
-  const [workList, setWorkList] = useState<Work[]>([]);
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      work: "",
-    },
-  });
-
-  const refresh = () => {
-    setWorkList(queryWork());
-  };
-
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    createWork({
-      work: data.work,
-      date: selectedDate,
-    });
-    refresh();
-    form.setValue("work", "");
-  };
-
-  useEffect(() => {
-    refresh();
-  }, [selectedDate]);
-
-  const selectedDateWorks = useMemo(() => {
-    return workList.filter((work) => {
-      const workDate = dayjs(work.date).format("YYYY-MM-DD");
-      const selected = dayjs(selectedDate).format("YYYY-MM-DD");
-      return dayjs(workDate).isSame(selected);
-    });
-  }, [workList, selectedDate]);
-
-  const selectedDateReviewWorks = useMemo(() => {
-    return workList.filter((work) => {
-      const workDate = dayjs(work.date).format("YYYY-MM-DD");
-      const selected = dayjs(selectedDate).format("YYYY-MM-DD");
-      return dayjs(workDate).isSame(selected);
-    });
-    return [];
-  }, [workList]);
+  const [filter, setFilter] = useState("all");
   return (
-    <div className="py-8 flex flex-col h-screen">
-      <div>
-        <DatePicker
-          value={selectedDate}
-          onChange={(date) => {
-            setSelectedDate(date);
-          }}
-        />
-      </div>
-      <div className="flex-1 flex gap-4 py-4 overflow-y-auto">
-        <div className="flex-1">
-          <Collapsible>
-            <CollapsibleTrigger className="border shadow-sm w-full">
-              <div className="flex flex-row px-4 py-2 justify-between items-center">
-                  <div className="flex-1 text-left">
-                    今日工作
-                  </div>
-                  <div className="flex-1">
-                    <Progress value={33} />
-                  </div>
-              </div>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <div className="h-[640px] overflow-y-scroll">
-                {
-                  selectedDateWorks.map(work => {
-                    return <div className="border shadow-sm w-full px-4 py-2">{work.work}</div>
-                  })
-                }
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-          {/* <h4>今日工作</h4>
-          {selectedDateWorks.map((work) => {
-            return <div className="px-4 py-2 border">{work.work}</div>;
-          })} */}
+    <div className="flex justify-between">
+      <div className="flex flex-col flex-1 gap-4 p-4 lg:p-6">
+        <div>
+          <h1 className="text-lg font-semibold md:text-2xl">WorkSpace</h1>
+          {/* {selectedDate} */}
+        </div>
+        <div>
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle>工作項目</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>工作內容</TableHead>
+                        <TableHead className="hidden sm:table-cell">
+                          Type
+                        </TableHead>
+                        <TableHead className="hidden sm:table-cell">
+                          建立時間
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          最新複習時間
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          <div className="font-medium">24. reverse linked list</div>
+                          {/* <div className="hidden text-sm text-muted-foreground md:inline">
+                            liam@example.com
+                          </div> */}
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          Sale
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          2134
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-06-23
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <div className="font-medium">24. reverse linked list</div>
+                          {/* <div className="hidden text-sm text-muted-foreground md:inline">
+                            liam@example.com
+                          </div> */}
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          Sale
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          2134
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-06-23
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </CardContent>
+                <CardFooter>
+                  <p>Card Footer</p>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="flex-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle>複習項目</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Card Content</p>
+                </CardContent>
+                <CardFooter>
+                  <p>Card Footer</p>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={"space-y-4"}>
-            <FormField
-              control={form.control}
-              name="work"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>工作內容</FormLabel>
-                  <FormControl>
-                    <div className="w-full">
-                      <Input {...field} placeholder="工作內容" />
-                    </div>
-                  </FormControl>
-                  <FormDescription>....</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+      <div className="w-72 bg-secondary h-[calc(100vh-60px)] p-4">
+        <Calendar
+          mode="single"
+          selected={dayjs(selectedDate).toDate()}
+          onSelect={(d) => {
+            setSelectedDate(dayjs(d).toISOString());
+          }}
+          initialFocus
+        />
       </div>
     </div>
   );
