@@ -1,4 +1,4 @@
-import { getQueryDateRange, getQueryWorksByDate } from "./workspace";
+import { getQueryDateRange, getQueryWorksByDate, getQueryReviewDatesByDate } from "./workspace";
 
 jest.mock("./base", () => ({
   getWorks: () => [
@@ -7,7 +7,18 @@ jest.mock("./base", () => ({
     { id: "3", date: "2024-07-08T08:10:00Z" }, // Taipei: 2024-07-08 16:10:00
     { id: "4", date: "2024-07-09T00:00:00Z" }, // Taipei: 2024-07-09 08:00:00
   ],
+  getReviewConfigs: () => [
+    { id: "1", duration: 86400000 }, // 1天
+    { id: "2", duration: 172800000 }, // 2天
+    { id: "3", duration: 345600000 }, // 4天
+    { id: "4", duration: 604800000 }, // 7天
+    { id: "4", duration: 1296000000 }, // 15天
+  ],
 }));
+// id: string; // uuid
+//   duration: number;
+//   createdAt: string;
+//   updatedAt: string;
 
 describe("getQueryDateRange function", () => {
   it("T1", () => {
@@ -38,5 +49,13 @@ describe("getQueryWorksByDate function", () => {
     const filteredWorks = getQueryWorksByDate("2024-07-10");
 
     expect(filteredWorks).toEqual([]);
+  });
+});
+
+describe("getQueryReviewDatesByDate", () => {
+  it("should get review dates correctly by date 2024-07-08", () => {
+    const dates = getQueryReviewDatesByDate("2024-07-08");
+    console.log('dates', dates)
+    expect(dates).toEqual(["1", "2", "3"]);
   });
 });
