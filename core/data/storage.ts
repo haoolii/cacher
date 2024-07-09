@@ -1,4 +1,4 @@
-import { ReviewConfig, ReviewRecord, Storable, Work } from "./types";
+import { FulFillRecord, ReviewConfig, Storable, Work } from "./types";
 
 export const Prefix = "CACHER";
 
@@ -48,14 +48,10 @@ export class LocalStorageService<T extends Storable> {
 
 export const workStorage = new LocalStorageService<Work>(`${Prefix}_WORKS`);
 
-export const reviewRecordStorage = new LocalStorageService<ReviewRecord>(
-  `${Prefix}_REVIEW_RECORDS`
-);
-
 export const reviewConfigStorage = new LocalStorageService<ReviewConfig>(
   `${Prefix}_REVIEW_CONFIGS`
 );
 
-export const fulfillRecordStorage = new LocalStorageService<ReviewRecord>(
+export const fulfillRecordStorage = new LocalStorageService<FulFillRecord>(
   `${Prefix}_FULFILL_RECORDS`
 );
