@@ -18,14 +18,6 @@ export interface Work extends Storable {
   updatedAt: string;
 }
 
-export interface ReviewRecord extends Storable {
-  id: string; // uuid
-  workId: string; // reference to work
-  date: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface FulFillRecord extends Storable {
   id: string; // uuid
   workId: string; // reference to work

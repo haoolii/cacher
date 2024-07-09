@@ -92,6 +92,13 @@ export const deleteFulFill = (id: string) => {
 
 // Review Setting
 export const getReviewConfigs = () => {
+  return [
+    { id: "1", duration: 86400000, createdAt: "", updatedAt: "" }, // 1天
+    { id: "2", duration: 172800000, createdAt: "", updatedAt: "" }, // 2天
+    { id: "3", duration: 345600000, createdAt: "", updatedAt: "" }, // 4天
+    { id: "4", duration: 604800000, createdAt: "", updatedAt: "" }, // 7天
+    { id: "4", duration: 1296000000, createdAt: "", updatedAt: "" }, // 15天
+  ];
   return reviewConfigStorage.getAllItems();
 };
 

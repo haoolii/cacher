@@ -6,7 +6,6 @@ export class LocalStorageService<T extends Storable> {
   private storageKey: string;
 
   constructor(storageKey: string) {
-    console.log(`=== Create ${storageKey} ===`);
     this.storageKey = storageKey;
   }
 
