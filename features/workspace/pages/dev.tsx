@@ -50,8 +50,9 @@ export const Dev = () => {
   }, [syncReviewWorkList]);
 
   return (
-    <div>
-      <div className="h-[860px] bg-zinc-100 flex border rounded-lg overflow-hidden">
+    // <div className="flex-1">
+    // </div>
+      <div className="bg-zinc-100 flex border overflow-hidden flex-1">
         <div className="flex-1 flex flex-col">
           <div className="flex-1 flex overflow-hidden">
             <div className="flex-1 border-r flex flex-col">
@@ -163,6 +164,5 @@ export const Dev = () => {
           />
         </div>
       </div>
-    </div>
   );
 };

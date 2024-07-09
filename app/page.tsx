@@ -2,7 +2,7 @@ import { Dev } from "@/features/workspace/pages/dev";
 
 export default function Home() {
   return (
-    <div className="max-w-[1480px] mx-auto py-10">
+    <div className="flex flex-col h-[calc(100vh-60px)]">
       <Dev />
     </div>
   );
