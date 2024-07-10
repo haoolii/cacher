@@ -1,9 +1,9 @@
-import { Dev } from "@/features/workspace/pages/dev";
+import { Chart } from "@/features/home/components/chart";
 
 export default function Home() {
   return (
     <div className="flex flex-col h-[calc(100vh-60px)]">
-      <Dev />
+      <Chart />
     </div>
   );
 }
