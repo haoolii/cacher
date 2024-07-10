@@ -21,23 +21,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Bell,
   CircleUser,
-  Home,
   LineChart,
   Menu,
   Package,
   Package2,
   Search,
   ShoppingCart,
-  Pickaxe,
   Users,
-  Bolt,
-  FileText,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { ModeToggle } from "@/core/components/modeToggle";
+import { Nav } from "@/core/components/nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -72,35 +68,7 @@ export default function RootLayout({
                   </Link>
                 </div>
                 <div className="flex-1">
-                  <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                    {/* <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    Dashboard
-                  </Link> */}
-                    <Link
-                      href="/workspace"
-                      className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                    >
-                      <Pickaxe className="h-4 w-4" />
-                      Work
-                    </Link>
-                    <Link
-                      href="/review-config"
-                      className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-                    >
-                      <Bolt className="h-4 w-4" />
-                      Review Config
-                    </Link>
-                    <Link
-                      href="/record"
-                      className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-                    >
-                      <FileText className="h-4 w-4" />
-                      Record
-                    </Link>
-                  </nav>
+                  <Nav />
                 </div>
               </div>
             </div>

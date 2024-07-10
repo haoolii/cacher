@@ -38,7 +38,6 @@ export const WorkSpace = () => {
 
   const syncReviewWorkList = useCallback(() => {
     setReviewWorks(getReviewList(selectedDate));
-    console.log("getReviewList(selectedDate)", getReviewList(selectedDate));
   }, [selectedDate]);
 
   useEffect(() => {

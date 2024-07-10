@@ -30,6 +30,5 @@ export const getPreviousDaysCount = (prev: number) => {
       work: works.length,
     });
   }
-  console.log(result);
   return result;
 };
